@@ -156,10 +156,10 @@ class CompletionProvider
             // HTML, beginning of file
 
             // Inside HTML and at the beginning of the file, propose <?php
-            $item = new CompletionItem('<?php', CompletionItemKind::KEYWORD);
+            $item = new CompletionItem('<'.'?php', CompletionItemKind::KEYWORD);
             $item->textEdit = new TextEdit(
                 new Range($pos, $pos),
-                stripStringOverlap($doc->getRange(new Range(new Position(0, 0), $pos)), '<?php')
+                stripStringOverlap($doc->getRange(new Range(new Position(0, 0), $pos)), '<'.'?php')
             );
             $list->items[] = $item;
 
@@ -189,6 +189,7 @@ class CompletionProvider
                 );
                 $list->items[] = $item;
             }
+            // FIXME support globals for runkit.superglobal,
 
         } elseif ($node instanceof Node\Expression\MemberAccessExpression) {
             // Member access expressions
@@ -196,6 +197,7 @@ class CompletionProvider
             //    $a->c|
             //    $a->|
 
+            // FIXME patch definitionResolver to support superglobals (e.g. $_TAG)
             // Multiple prefixes for all possible types
             $fqns = FqnUtilities\getFqnsFromType(
                 $this->definitionResolver->resolveExpressionNodeToType($node->dereferencableExpression)
@@ -447,6 +449,7 @@ class CompletionProvider
                 }
             }
         }
+        // FIXME support globals for runkit.superglobal,
 
         return array_values($vars);
     }
