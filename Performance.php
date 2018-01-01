@@ -14,7 +14,7 @@ use RecursiveIteratorIterator;
 
 $totalSize = 0;
 
-$frameworks = ["drupal", "wordpress", "php-language-server", "tolerant-php-parser", "math-php", "symfony", "CodeIgniter", "cakephp"];
+$frameworks = ["drupal", "wordpress", "php-language-server", "math-php", "symfony", "codeigniter", "cakephp"];
 
 foreach($frameworks as $framework) {
     $iterator = new RecursiveDirectoryIterator(__DIR__ . "/validation/frameworks/$framework");
@@ -34,11 +34,11 @@ foreach($frameworks as $framework) {
     $start = microtime(true);
 
     foreach ($testProviderArray as $idx => $testCaseFile) {
-        if (filesize($testCaseFile) > 10000) {
-            continue;
-        }
         if ($idx % 1000 === 0) {
             echo "$idx\n";
+        }
+        if (filesize($testCaseFile) > 10000) {
+            continue;
         }
 
         $fileContents = file_get_contents($testCaseFile);
