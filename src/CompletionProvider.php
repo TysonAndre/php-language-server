@@ -287,7 +287,7 @@ class CompletionProvider
             /** The typed name */
             $prefix = $nameNode instanceof Node\QualifiedName
                 ? (string)PhpParser\ResolvedName::buildName($nameNode->nameParts, $nameNode->getFileContents())
-                : $nameNode->getText($node->getFileContents());
+                : $nameNode->getText();
             $prefixLen = strlen($prefix);
 
             /** Whether the prefix is qualified (contains at least one backslash) */
